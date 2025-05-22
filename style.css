@@ -1,99 +1,79 @@
 body {
-  margin: 0;
-  font-family: 'Georgia', serif;
-  background: #222;
+  background: #1a1a1a;
   color: #eee;
+  font-family: 'Georgia', serif;
+  margin: 0;
+  padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
 }
 
-#app {
-  background: #2c1f0e;
-  border: 3px solid #a87f35;
-  border-radius: 12px;
-  width: 90vw;
-  max-width: 600px;
-  padding: 20px;
-  box-shadow: 0 0 20px #a87f35;
+.container {
+  max-width: 700px;
+  background: #2c2c2c;
+  padding: 20px 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px #6b6b6b;
 }
 
 h1, h2 {
-  font-family: 'Cinzel', serif;
-  color: #d4af37;
+  font-weight: normal;
+  margin-bottom: 1rem;
   text-align: center;
-  margin-bottom: 15px;
+  color: #d4af37; /* dorado */
 }
 
 p {
-  line-height: 1.4em;
-  margin-bottom: 10px;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
 button {
-  background: #a87f35;
+  background-color: #444;
   border: none;
-  color: #222;
-  font-weight: bold;
   padding: 10px 20px;
+  color: #eee;
+  font-size: 1rem;
+  border-radius: 5px;
   cursor: pointer;
-  border-radius: 8px;
-  font-size: 1em;
-  margin: 10px auto;
-  display: block;
-  transition: background 0.3s;
-}
-
-button:hover:not(:disabled) {
-  background: #d4af37;
-  color: #000;
+  transition: background-color 0.3s ease;
 }
 
 button:disabled {
-  background: #666;
-  color: #aaa;
+  background-color: #222;
   cursor: not-allowed;
 }
 
-.pantalla {
-  display: none;
+button:hover:not(:disabled) {
+  background-color: #d4af37;
+  color: #111;
 }
 
-.pantalla.activa {
-  display: block;
-}
-
-.frase {
-  font-style: italic;
-  color: #d4af37;
-  margin-top: 15px;
-  text-align: center;
-}
-
-.pista {
-  font-size: 0.9em;
-  color: #c9b07e;
-  margin-top: 5px;
-  text-align: center;
-}
-
-#animales button, #objetos-armeria button {
-  margin: 5px;
-  width: 30%;
+img {
+  max-width: 100%;
+  margin: 20px 0;
+  border-radius: 10px;
 }
 
 input[type="text"] {
-  width: 80%;
+  width: 100%;
   padding: 8px;
-  font-size: 1em;
-  margin-top: 10px;
-  border-radius: 6px;
-  border: 1px solid #a87f35;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  background: #3e2f13;
+  font-size: 1rem;
+  margin: 10px 0 20px 0;
+  border-radius: 5px;
+  border: 1px solid #555;
+  background-color: #222;
   color: #eee;
+}
+
+.center-text {
+  text-align: center;
 }
