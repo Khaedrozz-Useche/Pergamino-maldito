@@ -1,59 +1,54 @@
-const questions = [
-    {
-        question: "¿Cuál de estas criaturas se oculta bajo la luna llena según la leyenda?",
-        options: ["El grifo espectral", "El licántropo del abismo", "El fénix sombrío"],
-        answer: 1
-    },
-    {
-        question: "¿Qué palabra rompe el primer sello del pergamino?",
-        options: ["Lux", "Umbra", "Ignis"],
-        answer: 2
-    },
-    {
-        question: "¿Cuántos anillos contenían los susurros de los antiguos sabios?",
-        options: ["Tres", "Cinco", "Siete"],
-        answer: 0
-    }
-];
-
-let currentQuestion = 0;
-
-function renderQuestion() {
-    const container = document.getElementById("quiz-container");
-    container.innerHTML = "";
-
-    if (currentQuestion >= questions.length) {
-        container.innerHTML = "<h2>¡Has roto la maldición! El pergamino se disuelve en cenizas brillantes...</h2>";
-        return;
-    }
-
-    const q = questions[currentQuestion];
-    const questionElem = document.createElement("div");
-    questionElem.className = "question";
-    questionElem.innerHTML = `<h3>${q.question}</h3>`;
-
-    const optionsElem = document.createElement("div");
-    optionsElem.className = "options";
-
-    q.options.forEach((opt, index) => {
-        const btn = document.createElement("button");
-        btn.innerText = opt;
-        btn.onclick = () => {
-            if (index === q.answer) {
-                currentQuestion++;
-                renderQuestion();
-            } else {
-                const fb = document.createElement("div");
-                fb.className = "feedback";
-                fb.innerText = "Respuesta incorrecta. Inténtalo de nuevo.";
-                questionElem.appendChild(fb);
-            }
-        };
-        optionsElem.appendChild(btn);
-    });
-
-    container.appendChild(questionElem);
-    container.appendChild(optionsElem);
+body {
+  background: url('https://www.transparenttextures.com/patterns/parchment.png');
+  color: #ffcc00;
+  font-family: Georgia, serif;
+  padding: 40px;
+  background-color: #1a1a1a;
 }
 
-window.onload = renderQuestion;
+.contenedor {
+  max-width: 600px;
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0.85);
+  padding: 30px;
+  border: 2px solid #a52a2a;
+  border-radius: 15px;
+  box-shadow: 0 0 20px #000;
+}
+
+h1 {
+  font-size: 28px;
+  color: #ffd700;
+  text-shadow: 1px 1px #000;
+  margin-top: 0;
+}
+
+img.icono {
+  width: 64px;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+button {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 15px;
+  font-size: 16px;
+  background-color: #333;
+  color: #ffd700;
+  border: 2px solid #a52a2a;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #550000;
+}
+
+#resultado {
+  margin-top: 20px;
+  font-style: italic;
+  color: #ffffff;
+}
