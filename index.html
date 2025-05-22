@@ -2,40 +2,21 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Viaje en el Tiempo - Aventura del Pergamino</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Viaje en el Tiempo</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <div id="app">
-    <header>
-      <h1>El viaje del tiempo: la aventura del pergamino</h1>
-      <p id="intro-text">
-        Embárcate en una aventura donde cada paso revela un misterio. Completa cada desafío, descubre las palabras secretas y desbloquea el pergamino que salvará la aldea atrapada en el tiempo.
-      </p>
-    </header>
-
-    <main>
-      <!-- Contenedor principal de estación -->
-      <section id="station-container">
-
-        <!-- Aquí se insertará dinámicamente el contenido de cada estación -->
-
-      </section>
-
-      <div id="navigation">
-        <button id="prevBtn" disabled>Anterior</button>
-        <button id="nextBtn" disabled>Siguiente</button>
-      </div>
-
-    </main>
-
-    <footer>
-      <p>© 2025 Aventura del Pergamino - Desarrollado para inmersión total.</p>
-    </footer>
+  <div class="container">
+    <h1>El Pergamino del Tiempo</h1>
+    <div id="estaciones"></div>
+    <div id="final" class="hidden">
+      <h2>✨ Pergamino Completado ✨</h2>
+      <p id="pergaminoCompleto"></p>
+      <p>Explícalo a los aldeanos. ¡Debéis leerlo a medianoche para regresar a vuestro tiempo!</p>
+    </div>
   </div>
 
   <script src="script.js"></script>
 </body>
 </html>
-
