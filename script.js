@@ -1,145 +1,193 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const pantallas = document.querySelectorAll('.pantalla');
-  const frases = [];
-  let palabraSecretaArqueria = 'flecha';
-  let palabraSecretaArmeria = 'protección';
-  let palabraSecretaJuegos = 'risa';
-  let palabraSecretaOscuridad = 'olvido';
+const app = document.getElementById('app');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
 
-  function mostrarPantalla(id) {
-    pantallas.forEach(p => p.classList.remove('activa'));
-    document.getElementById(id).classList.add('activa');
+const estaciones = [
+  {
+    titulo: "Bienvenida al viaje en el tiempo",
+    texto: `El tiempo es un río que no siempre fluye hacia adelante. Hoy, tendrás la oportunidad de recorrer sus márgenes, doblarlo, entenderlo… y tal vez, regresar.`,
+    boton: "Continuar",
+  },
+  {
+    titulo: "Caligrafía ancestral",
+    descripcion: `
+    <p>Recibes un manuscrito antiguo digital con símbolos deformados. Debes arrastrar o seleccionar las letras correctas en los espacios según los pictogramas.</p>
+    <p><strong>Frase desbloqueada:</strong> <br>🌀 "El tiempo no avanza: se dobla, se rompe, se esconde."</p>
+    <p><em>Pista para continuar:</em> “Quien enfrenta la espada sin miedo y defiende el hogar, revelará los secretos del tiempo. Ysangrim y Danel vigilan, no dejarán pasar a enemigos.”</p>
+    `,
+    boton: "Ir a la espada y el escudero"
+  },
+  {
+    titulo: "El enfrentamiento con Ysangrim y Danel",
+    descripcion: `
+    <p>El escudero te asigna un animal que representa tu forma de pelear: Águila, Lobo o Serpiente.</p>
+    <p>Selecciona el animal que te indica el escudero para desbloquear la siguiente frase.</p>
+    <div class="center-text">
+      <button onclick="seleccionarAnimal('Aguila')">Águila</button>
+      <button onclick="seleccionarAnimal('Lobo')">Lobo</button>
+      <button onclick="seleccionarAnimal('Serpiente')">Serpiente</button>
+    </div>
+    <div id="mensajeAnimal" style="margin-top:15px; font-weight:bold;"></div>
+    `,
+    boton: "Ir a la arquería",
+    esperaRespuesta: true,
+  },
+  {
+    titulo: "El arte del arco y la paciencia",
+    descripcion: `
+    <p>Dispara dos flechas para demostrar tu pulso y paciencia. Luego ingresa la palabra secreta que el aldeano te da.</p>
+    <input type="text" id="inputPaciencia" placeholder="Ingresa la palabra clave" />
+    <button onclick="validarPalabra('inputPaciencia', 'paciencia')">Verificar palabra</button>
+    <div id="mensajePaciencia" style="margin-top:15px; font-weight:bold;"></div>
+    `,
+    boton: "Ir a la armería",
+    esperaRespuesta: true,
+  },
+  {
+    titulo: "Elección del arma y la protección",
+    descripcion: `
+    <p>Elige un arma o casco y si quieres, tómate una foto para recordar el viaje.</p>
+    <p>Recuerda la palabra clave: Protección</p>
+    <input type="text" id="inputProteccion" placeholder="Ingresa la palabra clave" />
+    <button onclick="validarPalabra('inputProteccion', 'protección')">Verificar palabra</button>
+    <div id="mensajeProteccion" style="margin-top:15px; font-weight:bold;"></div>
+    `,
+    boton: "Ir a los juegos",
+    esperaRespuesta: true,
+  },
+  {
+    titulo: "Risas y juegos medievales",
+    descripcion: `
+    <p>Prueba un juego, escucha las reglas o tómate una foto en el cepo.</p>
+    <p>Palabra clave: Descanso</p>
+    <input type="text" id="inputDescanso" placeholder="Ingresa la palabra clave" />
+    <button onclick="validarPalabra('inputDescanso', 'descanso')">Verificar palabra</button>
+    <div id="mensajeDescanso" style="margin-top:15px; font-weight:bold;"></div>
+    `,
+    boton: "Ir a la oscuridad",
+    esperaRespuesta: true,
+  },
+  {
+    titulo: "La prueba del olvido",
+    descripcion: `
+    <p>Con los ojos vendados, atraviesa la oscuridad y recupera la palabra clave.</p>
+    <p>Palabra clave: Olvido</p>
+    <input type="text" id="inputOlvido" placeholder="Ingresa la palabra clave" />
+    <button onclick="validarPalabra('inputOlvido', 'olvido')">Verificar palabra</button>
+    <div id="mensajeOlvido" style="margin-top:15px; font-weight:bold;"></div>
+    `,
+    boton: "Ver pergamino completo",
+    esperaRespuesta: true,
+  },
+  {
+    titulo: "El pergamino restaurado",
+    descripcion: `
+    <p>El pergamino ha sido restaurado. Los aldeanos deben reunirse a medianoche y leerlo en voz alta para que el tiempo vuelva a fluir.</p>
+    <p><strong>Frases desbloqueadas:</strong></p>
+    <ol>
+      <li>🌀 "El tiempo no avanza: se dobla, se rompe, se esconde."</li>
+      <li>🌀 “Solo aquel que alza la espada sin rencor abre el umbral dormido.”</li>
+      <li>🏹 “El futuro no se cambia, solo se intuye, como la flecha en el viento del tiempo.”</li>
+      <li>🛡️ "Porta lo que tu alma elija, pues te acompañará en tu largo viaje."</li>
+      <li>🎲 "Juega, ríe, falla: todo esto quedará atrás cuando cruces el portal."</li>
+      <li>👁️ “Quien busca en el tiempo, debe perder lo que es, para encontrarse donde no es.”</li>
+    </ol>
+    `,
+    boton: "Finalizar aventura",
+  }
+];
+
+let indice = 0;
+let animalesCorrectos = ['aguila', 'lobo', 'serpiente']; // para validar
+let respuestaCorrecta = false;
+
+// Función para cargar la estación actual
+function cargarEstacion() {
+  const estacion = estaciones[indice];
+  app.innerHTML = '';
+
+  // Mostrar título
+  const titulo = document.createElement('h1');
+  titulo.textContent = estacion.titulo;
+  app.appendChild(titulo);
+
+  // Mostrar descripción si existe
+  if (estacion.descripcion) {
+    const desc = document.createElement('div');
+    desc.innerHTML = estacion.descripcion;
+    app.appendChild(desc);
+  } else {
+    const p = document.createElement('p');
+    p.textContent = estacion.texto;
+    app.appendChild(p);
   }
 
-  // Inicio
-  document.getElementById('btn-iniciar').addEventListener('click', () => {
-    mostrarPantalla('caligrafia');
-    frases.push('El tiempo no avanza: se dobla, se rompe, se esconde.');
-  });
+  // Cambiar texto del botón siguiente
+  nextBtn.textContent = estacion.boton;
 
-  // Caligrafía
-  document.querySelector('#caligrafia .btn-siguiente').addEventListener('click', () => {
-    mostrarPantalla('combate');
-    frases.push('Solo aquel que alza la espada sin rencor abre el umbral dormido.');
-  });
+  // Control de botón anterior
+  prevBtn.disabled = indice === 0;
 
-  // Combate - selección animal
-  const animalesBtns = document.querySelectorAll('#combate .animal');
-  let animalSeleccionado = null;
-  animalesBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      animalesBtns.forEach(b => b.disabled = false);
-      btn.disabled = true;
-      animalSeleccionado = btn.dataset.animal;
-      document.querySelector('#combate .btn-siguiente').disabled = false;
-    });
-  });
-
-  document.querySelector('#combate .btn-siguiente').addEventListener('click', () => {
-    if (!animalSeleccionado) return;
-    mostrarPantalla('arqueria');
-    frases.push('La precisión y la calma son la llave que debes buscar. Dirígete a la arquería.');
-  });
-
-  // Arquería
-  const btnDisparar = document.getElementById('btn-disparar');
-  btnDisparar.addEventListener('click', () => {
-    btnDisparar.style.display = 'none';
-    document.getElementById('input-palabra-arqueria').style.display = 'block';
-    document.querySelector('#arqueria .frase').style.display = 'block';
-    document.querySelector('#arqueria .pista').style.display = 'block';
-  });
-
-  document.getElementById('validar-palabra-arqueria').addEventListener('click', () => {
-    const input = document.getElementById('palabra-arqueria');
-    if (input.value.trim().toLowerCase() === palabraSecretaArqueria) {
-      frases.push('El futuro no se cambia, solo se intuye, como la flecha en el viento del tiempo.');
-      mostrarPantalla('armeria');
-    } else {
-      alert('Palabra incorrecta, intenta de nuevo.');
-    }
-  });
-
-  // Armería
-  const objetos = document.querySelectorAll('#armeria .objeto');
-  let objetoSeleccionado = null;
-
-  objetos.forEach(obj => {
-    obj.addEventListener('click', () => {
-      objetos.forEach(o => o.disabled = false);
-      obj.disabled = true;
-      objetoSeleccionado = obj.dataset.palabra;
-      document.getElementById('input-palabra-armeria').style.display = 'block';
-      document.querySelector('#armeria .frase').style.display = 'block';
-      document.querySelector('#armeria .pista').style.display = 'block';
-    });
-  });
-
-  document.getElementById('validar-palabra-armeria').addEventListener('click', () => {
-    const input = document.getElementById('palabra-armeria');
-    if (input.value.trim().toLowerCase() === palabraSecretaArmeria) {
-      frases.push('Porta lo que tu alma elija, pues te acompañará en tu largo viaje.');
-      mostrarPantalla('juegos');
-    } else {
-      alert('Palabra incorrecta, intenta de nuevo.');
-    }
-  });
-
-  // Juegos
-  const btnInteractuarJuegos = document.getElementById('btn-interactuar-juegos');
-  btnInteractuarJuegos.addEventListener('click', () => {
-    btnInteractuarJuegos.style.display = 'none';
-    document.getElementById('input-palabra-juegos').style.display = 'block';
-    document.querySelector('#juegos .frase').style.display = 'block';
-    document.querySelector('#juegos .pista').style.display = 'block';
-  });
-
-  document.getElementById('validar-palabra-juegos').addEventListener('click', () => {
-    const input = document.getElementById('palabra-juegos');
-    if (input.value.trim().toLowerCase() === palabraSecretaJuegos) {
-      frases.push('Juega, ríe, falla: todo esto quedará atrás cuando cruces el portal.');
-      mostrarPantalla('oscuridad');
-    } else {
-      alert('Palabra incorrecta, intenta de nuevo.');
-    }
-  });
-
-  // Oscuridad
-  const btnOlvido = document.getElementById('btn-olvido');
-  btnOlvido.addEventListener('click', () => {
-    btnOlvido.style.display = 'none';
-    document.getElementById('input-palabra-oscuridad').style.display = 'block';
-    document.querySelector('#oscuridad .frase').style.display = 'block';
-  });
-
-  document.getElementById('validar-palabra-oscuridad').addEventListener('click', () => {
-    const input = document.getElementById('palabra-oscuridad');
-    if (input.value.trim().toLowerCase() === palabraSecretaOscuridad) {
-      frases.push('Quien busca en el tiempo, debe perder lo que es, para encontrarse donde no es.');
-      mostrarPantalla('final');
-      mostrarPergamino();
-    } else {
-      alert('Palabra incorrecta, intenta de nuevo.');
-    }
-  });
-
-  // Final
-  function mostrarPergamino() {
-    const pergaminoDiv = document.getElementById('pergamino-final');
-    pergaminoDiv.innerHTML = '';
-    frases.forEach((frase, i) => {
-      const p = document.createElement('p');
-      p.textContent = `${i + 1}. ${frase}`;
-      pergaminoDiv.appendChild(p);
-    });
+  // Si espera respuesta, deshabilitar botón siguiente hasta que respondan
+  if (estacion.esperaRespuesta) {
+    nextBtn.disabled = true;
+  } else {
+    nextBtn.disabled = false;
   }
+}
 
-  document.getElementById('guardar').addEventListener('click', () => {
-    alert('Función de guardar no implementada en este demo.');
-  });
+// Funciones auxiliares para validar input y selección
 
-  document.getElementById('finalizar').addEventListener('click', () => {
-    alert('Gracias por viajar en el tiempo con nosotros. ¡Hasta la próxima!');
-    location.reload();
-  });
+function seleccionarAnimal(animal) {
+  const mensaje = document.getElementById('mensajeAnimal');
+  if (animal.toLowerCase() === 'lobo') {
+    mensaje.textContent = '¡Correcto! Has elegido el espíritu protector del tiempo.';
+    respuestaCorrecta = true;
+    nextBtn.disabled = false;
+  } else {
+    mensaje.textContent = 'Esa no es la elección correcta, intenta de nuevo.';
+    respuestaCorrecta = false;
+    nextBtn.disabled = true;
+  }
+}
+
+function validarPalabra(inputId, palabraClave) {
+  const input = document.getElementById(inputId);
+  const mensaje = document.getElementById('mensaje' + palabraClave.charAt(0).toUpperCase() + palabraClave.slice(1));
+  if (input.value.trim().toLowerCase() === palabraClave.toLowerCase()) {
+    mensaje.textContent = '¡Palabra correcta! Puedes avanzar.';
+    respuestaCorrecta = true;
+    nextBtn.disabled = false;
+  } else {
+    mensaje.textContent = 'Palabra incorrecta, inténtalo de nuevo.';
+    respuestaCorrecta = false;
+    nextBtn.disabled = true;
+  }
+}
+
+// Eventos botones
+
+nextBtn.addEventListener('click', () => {
+  if (estaciones[indice].esperaRespuesta && !respuestaCorrecta) {
+    alert('Debes completar la acción correctamente para avanzar.');
+    return;
+  }
+  if (indice < estaciones.length - 1) {
+    indice++;
+    respuestaCorrecta = false;
+    cargarEstacion();
+  } else {
+    alert('Has finalizado la experiencia. ¡Gracias por participar!');
+  }
 });
+
+prevBtn.addEventListener('click', () => {
+  if (indice > 0) {
+    indice--;
+    respuestaCorrecta = true; // para permitir avanzar si retrocedes
+    cargarEstacion();
+  }
+});
+
+// Carga inicial
+cargarEstacion();
