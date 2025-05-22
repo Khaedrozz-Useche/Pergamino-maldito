@@ -1,47 +1,10 @@
-body {
-    font-family: 'Georgia', serif;
-    background: url('https://i.imgur.com/RHEaKz2.jpg') no-repeat center center fixed;
-    background-size: cover;
-    color: #2a1f0f;
-    margin: 0;
-    padding: 0;
-}
-.container {
-    max-width: 800px;
-    margin: 50px auto;
-    background: rgba(255, 248, 220, 0.95);
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.6);
-}
-h1 {
-    text-align: center;
-    font-size: 3em;
-    margin-bottom: 10px;
-}
-.intro {
-    font-size: 1.2em;
-    margin-bottom: 30px;
-    text-align: justify;
-}
-.question {
-    margin-bottom: 20px;
-}
-.options button {
-    display: block;
-    margin: 10px 0;
-    padding: 10px;
-    font-size: 1em;
-    width: 100%;
-    background-color: #dcc9a4;
-    border: 2px solid #5c3b1e;
-    border-radius: 8px;
-    cursor: pointer;
-}
-.options button:hover {
-    background-color: #cbb78e;
-}
-.feedback {
-    margin-top: 10px;
-    font-weight: bold;
+function responder(opcion) {
+  const resultado = document.getElementById("resultado");
+  if (opcion === 'leer') {
+    resultado.innerHTML = "Una voz susurra en tu mente: 'Has liberado al Hambre de los Antiguos...'. Sientes cómo tu alma se fragmenta.";
+  } else if (opcion === 'quemar') {
+    resultado.innerHTML = "El fuego consume el pergamino y las runas se disuelven en el aire. Una sensación de alivio te invade. Has contenido el mal.";
+  } else {
+    resultado.innerHTML = "Guardas el pergamino en tu bolsa. Tal vez un mago o sacerdote pueda descifrarlo más adelante.";
+  }
 }
