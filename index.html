@@ -2,19 +2,39 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Viaje en el Tiempo</title>
-  <link rel="stylesheet" href="style.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Criptogramas - Recorrido de Estaciones</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>El Pergamino del Tiempo</h1>
-    <div id="estaciones"></div>
-    <div id="final" class="hidden">
-      <h2>✨ Pergamino Completado ✨</h2>
-      <p id="pergaminoCompleto"></p>
-      <p>Explícalo a los aldeanos. ¡Debéis leerlo a medianoche para regresar a vuestro tiempo!</p>
-    </div>
+  <h1>Recorrido de Estaciones</h1>
+
+  <div id="stations-container">
+    <button id="station1" class="station-btn">🖋️ Estación de Caligrafía</button>
+    <button id="station2" class="station-btn">⚔️ Estación de Combate</button>
+    <button id="station3" class="station-btn">🏹 Estación de Arquería</button>
+    <button id="station4" class="station-btn">🛡️ Estación de Armería</button>
+    <button id="station5" class="station-btn">🎲 Estación de Juegos Medievales</button>
+    <button id="station6" class="station-btn">👁️ Estación de la Oscuridad</button>
+  </div>
+
+  <div id="interaction-area">
+    <div id="message"></div>
+    <div id="input-area"></div>
+    <div id="image-selection" style="display:none;"></div>
+  </div>
+
+  <div id="final-scroll" style="display:none;">
+    <h2>Pergamino Completo Desbloqueado</h2>
+    <p>
+      "El tiempo no avanza: se dobla, se rompe, se esconde."<br/>
+      "Solo aquel que alza la espada sin rencor abre el umbral dormido."<br/>
+      "El futuro no se cambia, solo se intuye, como la flecha en el viento del tiempo."<br/>
+      "Porta lo que tu alma elija, pues te acompañará en tu largo viaje."<br/>
+      "Juega, ríe, falla: todo esto quedará atrás cuando cruces el portal."<br/>
+      "Quien busca en el tiempo, debe perder lo que es, para encontrarse donde no es."
+    </p>
+    <p><strong>Cierre narrativo:</strong> Los aldeanos leerán el pergamino a medianoche y volverán a su tiempo.</p>
   </div>
 
   <script src="script.js"></script>
