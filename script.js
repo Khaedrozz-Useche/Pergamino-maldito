@@ -1,193 +1,103 @@
-const stations = [
+const estaciones = [
   {
-    // 1 - Caligrafía (Título narrativo)
-    title: "El Manuscrito de las Letras Perdidas",
-    description: `
-      Los viajeros reciben un manuscrito antiguo digital con símbolos extraños, casi ilegibles.  
-      Deben descifrar y escribir las letras correctas en los espacios según el pictograma.
-      Al resolverlo, se revela la primera frase del pergamino.
-    `,
-    challengeType: "input", // escribir palabra clave
-    challengeAnswer: "El tiempo no avanza: se dobla, se rompe, se esconde.",
-    keyWord: "El tiempo no avanza: se dobla, se rompe, se esconde.",
-    showPunctuation: true,
-    hintNext:
-      '“Quien enfrenta la espada sin miedo y defiende el hogar, revelará los secretos del tiempo. Ysangrim y Danel vigilan, no dejarán pasar a enemigos.”',
+    titulo: "Fragmentos del Manuscrito",
+    clave: "",
+    desafio: "Descifra el manuscrito antiguo con símbolos distorsionados. Escribe las letras correctas en su lugar.",
+    criptograma: "El tiempo no avanza se dobla se rompe se esconde",
+    pista: "Quien enfrenta la espada sin miedo y defiende el hogar, revelará los secretos del tiempo. Ysangrim y Danel vigilan.",
   },
-
   {
-    // 2 - Combate
-    title: "El Duelo del Guardián",
-    description: `
-      Enfréntate a Ysangrim o Danel en combate.  
-      El escudero evaluará tu estilo y te asignará un animal: Águila, Lobo o Serpiente.  
-      Selecciona el animal correcto para desbloquear la frase secreta.
-    `,
-    challengeType: "choices",
-    choices: ["Águila", "Lobo", "Serpiente"],
-    correctChoice: "Águila", // Definir aquí la respuesta correcta o el dato para desbloquear (asumiendo Águila)
-    // Esto puede personalizarse para cada usuario si quieres.
-    keyWord: "Solo aquel que alza la espada sin rencor abre el umbral dormido.",
-    showPunctuation: true,
-    hintNext: '“La precisión y la calma son la llave que debes buscar. Dirígete a la arquería.”',
+    titulo: "El Juicio del Combate",
+    clave: "Aguila Lobo Serpiente",
+    desafio: "Enfréntate a Ysangrim o Danel. El escudero dirá qué animal representa tu forma de pelear. Elígelo.",
+    criptograma: "Solo aquel que alza la espada sin rencor abre el umbral dormido",
+    pista: "La precisión y la calma son la llave que debes buscar. Dirígete a la arquería.",
   },
-
   {
-    // 3 - Arquería
-    title: "El Arte del Tiro y la Paciencia",
-    description: `
-      El aldeano te pide disparar dos flechas para demostrar tu pulso y paciencia, cualidades esenciales para el viaje en el tiempo.  
-      Después, recibirás la palabra secreta para ingresar y desbloquear la siguiente frase.
-    `,
-    challengeType: "input",
-    challengeAnswer: "Paciencia",
-    keyWord: "Paciencia",
-    showPunctuation: false,
-    cryptogram:
-      "El futuro no se cambia solo se intuye como la flecha en el viento del tiempo.",
-    hintNext:
-      "Así como la flecha elige el viento, el viajero debe dejar que el alma elija su acero. La vieja armería espera.",
+    titulo: "El Arte del Pulso",
+    clave: "Paciencia",
+    desafio: "Dispara dos flechas para demostrar tu control. El aldeano dirá la palabra clave tras tu intento.",
+    criptograma: "El futuro no se cambia solo se intuye como la flecha en el viento del tiempo",
+    pista: "Así como la flecha elige el viento, el viajero debe dejar que el alma elija su acero.",
   },
-
   {
-    // 4 - Armería
-    title: "El Juramento del Alma y el Acero",
-    description: `
-      Elige el arma o casco que más te llame la atención.  
-      Si quieres, tómate una foto con tu elección para recordar el momento antes del viaje.  
-      Independientemente, recibirás la palabra clave para avanzar.
-    `,
-    challengeType: "choicePhoto",
-    choices: ["Espada Antigua", "Casco de Hierro", "Escudo Forjado"],
-    keyWord: "Protección",
-    showPunctuation: false,
-    cryptogram:
-      "Porta lo que tu alma elija pues te acompañará en tu largo viaje.",
-    hintNext: '“Antes de partir, deberías reír una vez más. ¡Un juego no hace daño a nadie!”',
+    titulo: "Armas del Alma",
+    clave: "Protección",
+    desafio: "Elige el arma o casco que más resuene contigo. Al alzarlo o tomarte una foto, la aldeana revelará la clave.",
+    criptograma: "Porta lo que tu alma elija pues te acompañará en tu largo viaje",
+    pista: "Antes de partir, deberías reír una vez más. ¡Un juego no hace daño a nadie!",
   },
-
   {
-    // 5 - Juegos Medievales
-    title: "La Risa y el Descanso del Viajero",
-    description: `
-      Prueba un juego medieval, aprende sus reglas o tómate una foto en el cepo.  
-      Al hacerlo, recibirás la palabra clave para desbloquear la siguiente frase.
-    `,
-    challengeType: "input",
-    challengeAnswer: "Descanso",
-    keyWord: "Descanso",
-    showPunctuation: false,
-    cryptogram:
-      "Juega ríe falla todo esto quedará atrás cuando cruces el portal.",
-    hintNext:
-      "Cuidado, viajero… hay quien ya cruzó el portal y no recuerdan su nombre. Los ladrones tal vez puedan ayudarte.",
+    titulo: "Risas antes del Portal",
+    clave: "Descanso",
+    desafio: "Prueba un juego medieval, escucha las reglas o tómate una foto en el cepo. Obtendrás la clave.",
+    criptograma: "Juega ríe falla todo esto quedará atrás cuando cruces el portal",
+    pista: "Cuidado, viajero… hay quien ya cruzó el portal y no recuerda su nombre.",
   },
-
   {
-    // 6 - Oscuridad (Prueba del Olvido)
-    title: "El Portal del Olvido",
-    description: `
-      Dos ladrones robaron un pergamino brillante y abrieron un portal que atrapó la aldea en el tiempo, borrando sus recuerdos.  
-      Cruzarás una serie de obstáculos con los ojos vendados para recuperar tu identidad.
-    `,
-    challengeType: "input",
-    challengeAnswer: "Olvido",
-    keyWord: "Olvido",
-    showPunctuation: false,
-    cryptogram:
-      "Quien busca en el tiempo debe perder lo que es para encontrarse donde no es.",
-    hintNext: null,
-  },
+    titulo: "La Prueba del Olvido",
+    clave: "Olvido",
+    desafio: "Cruza los obstáculos vendado. Solo así recibirás la clave para liberar la última frase.",
+    criptograma: "Quien busca en el tiempo debe perder lo que es para encontrarse donde no es",
+    pista: "Has llegado al final. Une los fragmentos del tiempo. Es hora de despertar.",
+  }
 ];
 
-let currentStation = 0;
-let collectedPhrases = [];
+let frases = [];
 
-const container = document.getElementById("station-container");
-const prevBtn = document.getElementById("prevBtn");
-const nextBtn = document.getElementById("nextBtn");
+function renderEstaciones() {
+  const contenedor = document.getElementById("estaciones");
+  estaciones.forEach((estacion, index) => {
+    const div = document.createElement("div");
+    div.className = "estacion";
 
-function cleanPunctuation(text) {
-  // Elimina signos de puntuación para comparación
-  return text.toLowerCase().replace(/[.,:;¡!¿?"'…]/g, "").trim();
+    const titulo = document.createElement("h2");
+    titulo.textContent = `${estacion.titulo}`;
+    div.appendChild(titulo);
+
+    const desc = document.createElement("p");
+    desc.textContent = estacion.desafio;
+    div.appendChild(desc);
+
+    const input = document.createElement("input");
+    input.placeholder = "Ingresa la palabra clave o elige el símbolo";
+    div.appendChild(input);
+
+    const btn = document.createElement("button");
+    btn.textContent = "Desbloquear frase";
+    btn.onclick = () => verificarClave(index, input.value.trim(), div);
+    div.appendChild(btn);
+
+    contenedor.appendChild(div);
+  });
 }
 
-function renderStation() {
-  const station = stations[currentStation];
-  container.innerHTML = "";
-
-  // Título
-  const titleEl = document.createElement("h2");
-  titleEl.classList.add("station-title");
-  titleEl.textContent = station.title;
-  container.appendChild(titleEl);
-
-  // Descripción
-  const descEl = document.createElement("p");
-  descEl.classList.add("station-description");
-  descEl.innerHTML = station.description;
-  container.appendChild(descEl);
-
-  // Si ya se recolectó la frase, mostrar criptograma
-  const phraseIndex = collectedPhrases.findIndex(
-    (p) => p.station === currentStation
-  );
-
-  // Mostrar desafío o frase según el estado
-  if (phraseIndex !== -1) {
-    // Frase desbloqueada - mostrar criptograma y pista siguiente
-    const cryptogramEl = document.createElement("div");
-    cryptogramEl.classList.add("cryptogram");
-    cryptogramEl.textContent = stations[currentStation].challengeAnswer;
-
-    container.appendChild(cryptogramEl);
-
-    if (station.hintNext) {
-      const hintEl = document.createElement("p");
-      hintEl.classList.add("station-description");
-      hintEl.style.marginTop = "1rem";
-      hintEl.style.fontStyle = "italic";
-      hintEl.textContent = "Pista para la siguiente etapa: " + station.hintNext;
-      container.appendChild(hintEl);
-    }
+function verificarClave(index, valor, contenedor) {
+  const estacion = estaciones[index];
+  const claves = estacion.clave.toLowerCase().split(" ");
+  if (estacion.clave === "" || claves.includes(valor.toLowerCase())) {
+    const frase = document.createElement("p");
+    frase.innerHTML = `🌀 <strong>Frase:</strong> ${estacion.criptograma}`;
+    frases.push(estacion.criptograma);
+    const pista = document.createElement("p");
+    pista.innerHTML = `<strong>Pista:</strong> ${estacion.pista}`;
+    contenedor.appendChild(frase);
+    contenedor.appendChild(pista);
+    contenedor.querySelector("input").disabled = true;
+    contenedor.querySelector("button").disabled = true;
+    revisarFinal();
   } else {
-    // Mostrar desafío interactivo según tipo
-
-    switch (station.challengeType) {
-      case "input":
-        renderInputChallenge(station);
-        break;
-      case "choices":
-        renderChoiceChallenge(station);
-        break;
-      case "choicePhoto":
-        renderChoicePhotoChallenge(station);
-        break;
-      default:
-        container.innerHTML += "<p>Desafío no definido.</p>";
-    }
+    alert("Palabra clave incorrecta. Intenta otra vez o consulta al aldeano.");
   }
-
-  // Controlar botones navegación
-  prevBtn.disabled = currentStation === 0;
-  nextBtn.disabled = phraseIndex === -1;
 }
 
-function renderInputChallenge(station) {
-  // Instrucción
-  const label = document.createElement("label");
-  label.textContent = "Ingrese la palabra o frase secreta:";
-  label.style.display = "block";
-  label.style.marginBottom = "0.5rem";
-  container.appendChild(label);
+function revisarFinal() {
+  if (frases.length === estaciones.length) {
+    document.getElementById("final").classList.remove("hidden");
+    document.getElementById("pergaminoCompleto").textContent = frases.join(" ");
+  }
+}
 
-  // Input texto
-  const input = document.createElement("input");
-  input.type = "text";
-  input.id = "secretInput";
-  input.autocomplete = "off";
-  input.spellcheck = false;
-  container.appendChild(input);
+renderEstaciones();
 
-  // Botón
 
