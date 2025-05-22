@@ -1,21 +1,87 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Viaje en el Tiempo - Experiencia Medieval</title>
-<link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Viaje del Tiempo</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <div id="app">
-      <!-- Aquí va el contenido dinámico -->
-    </div>
-    <div class="navigation">
-      <button id="prevBtn" disabled>Anterior</button>
-      <button id="nextBtn">Comenzar viaje en el tiempo</button>
-    </div>
+  <div id="app">
+    <header>
+      <h1>El Viaje del Tiempo</h1>
+      <p class="intro">Recorre las estaciones, completa los desafíos y reúne las seis frases que abrirán el portal a tu tiempo.</p>
+    </header>
+
+    <main>
+      <section id="estacion1" class="estacion">
+        <h2>Un Pergamino en Lengua Antigua</h2>
+        <p>Un escriba les entrega un manuscrito con símbolos distorsionados. Solo descifrándolos descubrirán la frase que el tiempo dejó atrás.</p>
+        <div class="criptograma">[CRIPTOGRAMA AQUI]</div>
+        <input type="text" placeholder="Escribe la frase descifrada...">
+        <p class="frase-desbloqueada oculto">🌀 "El tiempo no avanza: se dobla, se rompe, se esconde."</p>
+        <p class="pista oculto">“Quien enfrenta la espada sin miedo y defiende el hogar, revelará los secretos del tiempo. Ysangrim y Danel vigilan, no dejarán pasar a enemigos.”</p>
+      </section>
+
+      <section id="estacion2" class="estacion">
+        <h2>El Duelo de Ysangrim</h2>
+        <p>Un escudero les observa combatir. Al terminar, asigna un animal a su estilo de lucha. Seleccionen el indicado para continuar.</p>
+        <div class="opciones-combate">
+          <button onclick="desbloquearEstacion(2, 'aguila')">Águila</button>
+          <button onclick="desbloquearEstacion(2, 'lobo')">Lobo</button>
+          <button onclick="desbloquearEstacion(2, 'serpiente')">Serpiente</button>
+        </div>
+        <p class="frase-desbloqueada oculto">🌀 “Solo aquel que alza la espada sin rencor abre el umbral dormido.”</p>
+        <p class="pista oculto">“La precisión y la calma son la llave que debes buscar. Dirígete a la arquería.”</p>
+      </section>
+
+      <section id="estacion3" class="estacion">
+        <h2>Dos Flechas y el Viento</h2>
+        <p>El aldeano les pide disparar dos flechas para demostrar pulso y paciencia. Luego les revela la palabra clave.</p>
+        <input type="text" placeholder="Palabra clave..." oninput="verificarClave(this, 3, 'paciencia')">
+        <p class="frase-desbloqueada oculto">🏹 “El futuro no se cambia, solo se intuye, como la flecha en el viento del tiempo.”</p>
+        <p class="pista oculto">“Así como la flecha elige el viento, el viajero debe dejar que el alma elija su acero. La vieja armería espera.”</p>
+      </section>
+
+      <section id="estacion4" class="estacion">
+        <h2>Elegir tu Acero</h2>
+        <p>Escoge un casco o un arma que represente tu espíritu. La aldeana dirá una palabra que servirá para descifrar el mensaje.</p>
+        <input type="text" placeholder="Palabra clave..." oninput="verificarClave(this, 4, 'proteccion')">
+        <p class="frase-desbloqueada oculto">🛡️ "Porta lo que tu alma elija, pues te acompañará en tu largo viaje."</p>
+        <p class="pista oculto">“Antes de partir, deberías reír una vez más. ¡Un juego no hace daño a nadie!”</p>
+      </section>
+
+      <section id="estacion5" class="estacion">
+        <h2>Una Última Risa</h2>
+        <p>Juega con los aldeanos, ríe o posa en el cepo. Luego recibirás la palabra clave para el criptograma.</p>
+        <input type="text" placeholder="Palabra clave..." oninput="verificarClave(this, 5, 'descanso')">
+        <p class="frase-desbloqueada oculto">🎲 "Juega, ríe, falla: todo esto quedará atrás cuando cruces el portal."</p>
+        <p class="pista oculto">“Cuidado, viajero… hay quien ya cruzó el portal, y no recuerdan su nombre. Los ladrones tal vez puedan ayudarte.”</p>
+      </section>
+
+      <section id="estacion6" class="estacion">
+        <h2>La Prueba del Olvido</h2>
+        <p>Cruza los obstáculos con los ojos vendados y acepta lo desconocido. Solo así recuperarás tu nombre.</p>
+        <input type="text" placeholder="Palabra clave..." oninput="verificarClave(this, 6, 'olvido')">
+        <p class="frase-desbloqueada oculto">👁️ “Quien busca en el tiempo, debe perder lo que es, para encontrarse donde no es.”</p>
+      </section>
+
+      <section id="final" class="oculto">
+        <h2>El Pergamino Completo</h2>
+        <p>🌀 "El tiempo no avanza: se dobla, se rompe, se esconde."</p>
+        <p>🌀 “Solo aquel que alza la espada sin rencor abre el umbral dormido.”</p>
+        <p>🏹 “El futuro no se cambia, solo se intuye, como la flecha en el viento del tiempo.”</p>
+        <p>🛡️ "Porta lo que tu alma elija, pues te acompañará en tu largo viaje."</p>
+        <p>🎲 "Juega, ríe, falla: todo esto quedará atrás cuando cruces el portal."</p>
+        <p>👁️ “Quien busca en el tiempo, debe perder lo que es, para encontrarse donde no es.”</p>
+        <p class="final-instruccion">Explícaselo a los aldeanos. A medianoche, leerán el pergamino... y el portal se abrirá.</p>
+      </section>
+    </main>
+
+    <footer>
+      <p>© La Aldea Fuera del Tiempo</p>
+    </footer>
   </div>
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
