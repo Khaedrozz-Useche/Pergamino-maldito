@@ -1,27 +1,119 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <title>[Misión] El Pergamino Maldito</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Viaje en el Tiempo - Experiencia Medieval</title>
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="contenedor">
-    <h1>
-      <img class="icono" src="https://wow.zamimg.com/images/wow/icons/large/inv_scroll_03.jpg" alt="Pergamino">
-      [Misión] El Pergamino Maldito
-    </h1>
-    <p>Mientras explorabas las ruinas olvidadas de Thal'kareth, un brillo oscuro te llama la atención. Un pergamino antiguo yace en el suelo, sellado con runas arcanas...</p>
-    <p><strong>¿Qué decides hacer?</strong></p>
-
-    <button onclick="responder('leer')">Leer el pergamino</button>
-    <button onclick="responder('quemar')">Quemarlo en un fuego ritual</button>
-    <button onclick="responder('guardar')">Guardarlo para otro momento</button>
-
-    <div id="resultado"></div>
+<div id="app">
+  <div id="inicio" class="pantalla activa">
+    <h1>Viaje en el Tiempo</h1>
+    <p class="narracion">
+      “El tiempo es un río que no siempre fluye hacia adelante. Hoy, tendrás la oportunidad de recorrer sus márgenes, doblarlo, entenderlo… y tal vez, regresar.”
+    </p>
+    <button id="btn-iniciar">Comenzar viaje en el tiempo</button>
   </div>
 
-  <script src="script.js"></script>
+  <div id="caligrafia" class="pantalla">
+    <h2>🖋️ Descifra el manuscrito antiguo</h2>
+    <p>Arrastra las letras sobre el criptograma para revelar la frase.</p>
+    <!-- Aquí va el desafío interactivo de arrastrar letras (simplificado para ejemplo) -->
+    <div id="criptograma-caligrafia">
+      <p><em>(Desafío interactivo aquí)</em></p>
+    </div>
+    <p class="frase">🌀 "El tiempo no avanza: se dobla, se rompe, se esconde."</p>
+    <p class="pista">
+      “Quien enfrenta la espada sin miedo y defiende el hogar, revelará los secretos del tiempo. Ysangrim y Danel vigilan, no dejarán pasar a enemigos.”
+    </p>
+    <button class="btn-siguiente" data-siguiente="combate">Ir a Combate</button>
+  </div>
+
+  <div id="combate" class="pantalla">
+    <h2>⚔️ Enfréntate a Ysangrim y Danel</h2>
+    <p>El escudero te asignará un animal que representa tu estilo de lucha.</p>
+    <div id="animales">
+      <button class="animal" data-animal="Águila">Águila</button>
+      <button class="animal" data-animal="Lobo">Lobo</button>
+      <button class="animal" data-animal="Serpiente">Serpiente</button>
+    </div>
+    <p class="frase">🌀 “Solo aquel que alza la espada sin rencor abre el umbral dormido.”</p>
+    <p class="pista">“La precisión y la calma son la llave que debes buscar. Dirígete a la arquería.”</p>
+    <button class="btn-siguiente" data-siguiente="arqueria" disabled>Ir a Arquería</button>
+  </div>
+
+  <div id="arqueria" class="pantalla">
+    <h2>🏹 Demuestra tu pulso y paciencia</h2>
+    <p>Dispara dos flechas y luego ingresa la palabra secreta que recibirás.</p>
+    <button id="btn-disparar">Disparar flechas</button>
+    <div id="input-palabra-arqueria" style="display:none;">
+      <input type="text" id="palabra-arqueria" placeholder="Ingresa la palabra clave" />
+      <button id="validar-palabra-arqueria">Enviar</button>
+    </div>
+    <p class="frase" style="display:none;">🏹 “El futuro no se cambia, solo se intuye, como la flecha en el viento del tiempo.”</p>
+    <p class="pista" style="display:none;">“Así como la flecha elige el viento, el viajero debe dejar que el alma elija su acero. La vieja armería espera.”</p>
+    <button class="btn-siguiente" data-siguiente="armeria" style="display:none;">Ir a Armería</button>
+  </div>
+
+  <div id="armeria" class="pantalla">
+    <h2>🛡️ Elige tu arma o casco</h2>
+    <p>Selecciona un objeto y, si quieres, tómate una foto para recordar el viaje.</p>
+    <div id="objetos-armeria">
+      <button class="objeto" data-palabra="Protección">Espada</button>
+      <button class="objeto" data-palabra="Protección">Casco</button>
+      <button class="objeto" data-palabra="Protección">Escudo</button>
+    </div>
+    <div id="foto-armeria" style="display:none;">
+      <p><em>Función foto simulada (no implementada aquí).</em></p>
+    </div>
+    <div id="input-palabra-armeria" style="display:none;">
+      <input type="text" id="palabra-armeria" placeholder="Ingresa la palabra clave" />
+      <button id="validar-palabra-armeria">Enviar</button>
+    </div>
+    <p class="frase" style="display:none;">🛡️ "Porta lo que tu alma elija, pues te acompañará en tu largo viaje."</p>
+    <p class="pista" style="display:none;">“Antes de partir, deberías reír una vez más. ¡Un juego no hace daño a nadie!”</p>
+    <button class="btn-siguiente" data-siguiente="juegos" style="display:none;">Ir a Juegos Medievales</button>
+  </div>
+
+  <div id="juegos" class="pantalla">
+    <h2>🎲 Ríe y juega antes de partir</h2>
+    <p>Prueba un juego, escucha las reglas o toma una foto en el cepo.</p>
+    <button id="btn-interactuar-juegos">He interactuado</button>
+    <div id="input-palabra-juegos" style="display:none;">
+      <input type="text" id="palabra-juegos" placeholder="Ingresa la palabra clave" />
+      <button id="validar-palabra-juegos">Enviar</button>
+    </div>
+    <p class="frase" style="display:none;">🎲 "Juega, ríe, falla: todo esto quedará atrás cuando cruces el portal."</p>
+    <p class="pista" style="display:none;">“Cuidado, viajero… hay quien ya cruzó el portal, y no recuerdan su nombre. Los ladrones tal vez puedan ayudarte.”</p>
+    <button class="btn-siguiente" data-siguiente="oscuridad" style="display:none;">Ir a la Oscuridad</button>
+  </div>
+
+  <div id="oscuridad" class="pantalla">
+    <h2>👁️ Atrévete a cruzar el Olvido</h2>
+    <p>Para romper el hechizo, cruza la sección con los ojos vendados y luego ingresa la palabra clave.</p>
+    <button id="btn-olvido">He completado la prueba</button>
+    <div id="input-palabra-oscuridad" style="display:none;">
+      <input type="text" id="palabra-oscuridad" placeholder="Ingresa la palabra clave" />
+      <button id="validar-palabra-oscuridad">Enviar</button>
+    </div>
+    <p class="frase" style="display:none;">👁️ “Quien busca en el tiempo, debe perder lo que es, para encontrarse donde no es.”</p>
+    <button class="btn-siguiente" data-siguiente="final" style="display:none;">Ver pergamino completo</button>
+  </div>
+
+  <div id="final" class="pantalla">
+    <h2>🏁 Pergamino Completo</h2>
+    <div id="pergamino-final">
+      <!-- Se mostrarán todas las frases en orden -->
+    </div>
+    <p>“El pergamino ha sido restaurado. Los aldeanos deben reunirse a medianoche y leerlo en voz alta. Solo así el tiempo volverá a fluir.”</p>
+    <button id="guardar">Guardar pergamino</button>
+    <button id="finalizar">Finalizar aventura</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
+
 
