@@ -1,103 +1,193 @@
+const app = document.getElementById('app');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+
 const estaciones = [
   {
-    titulo: "Fragmentos del Manuscrito",
-    clave: "",
-    desafio: "Descifra el manuscrito antiguo con símbolos distorsionados. Escribe las letras correctas en su lugar.",
-    criptograma: "El tiempo no avanza se dobla se rompe se esconde",
-    pista: "Quien enfrenta la espada sin miedo y defiende el hogar, revelará los secretos del tiempo. Ysangrim y Danel vigilan.",
+    titulo: "Bienvenida al viaje en el tiempo",
+    texto: `El tiempo es un río que no siempre fluye hacia adelante. Hoy, tendrás la oportunidad de recorrer sus márgenes, doblarlo, entenderlo… y tal vez, regresar.`,
+    boton: "Continuar",
   },
   {
-    titulo: "El Juicio del Combate",
-    clave: "Aguila Lobo Serpiente",
-    desafio: "Enfréntate a Ysangrim o Danel. El escudero dirá qué animal representa tu forma de pelear. Elígelo.",
-    criptograma: "Solo aquel que alza la espada sin rencor abre el umbral dormido",
-    pista: "La precisión y la calma son la llave que debes buscar. Dirígete a la arquería.",
+    titulo: "Caligrafía ancestral",
+    descripcion: `
+    <p>Recibes un manuscrito antiguo digital con símbolos deformados. Debes arrastrar o seleccionar las letras correctas en los espacios según los pictogramas.</p>
+    <p><strong>Frase desbloqueada:</strong> <br>🌀 "El tiempo no avanza: se dobla, se rompe, se esconde."</p>
+    <p><em>Pista para continuar:</em> “Quien enfrenta la espada sin miedo y defiende el hogar, revelará los secretos del tiempo. Ysangrim y Danel vigilan, no dejarán pasar a enemigos.”</p>
+    `,
+    boton: "Ir a la espada y el escudero"
   },
   {
-    titulo: "El Arte del Pulso",
-    clave: "Paciencia",
-    desafio: "Dispara dos flechas para demostrar tu control. El aldeano dirá la palabra clave tras tu intento.",
-    criptograma: "El futuro no se cambia solo se intuye como la flecha en el viento del tiempo",
-    pista: "Así como la flecha elige el viento, el viajero debe dejar que el alma elija su acero.",
+    titulo: "El enfrentamiento con Ysangrim y Danel",
+    descripcion: `
+    <p>El escudero te asigna un animal que representa tu forma de pelear: Águila, Lobo o Serpiente.</p>
+    <p>Selecciona el animal que te indica el escudero para desbloquear la siguiente frase.</p>
+    <div class="center-text">
+      <button onclick="seleccionarAnimal('Aguila')">Águila</button>
+      <button onclick="seleccionarAnimal('Lobo')">Lobo</button>
+      <button onclick="seleccionarAnimal('Serpiente')">Serpiente</button>
+    </div>
+    <div id="mensajeAnimal" style="margin-top:15px; font-weight:bold;"></div>
+    `,
+    boton: "Ir a la arquería",
+    esperaRespuesta: true,
   },
   {
-    titulo: "Armas del Alma",
-    clave: "Protección",
-    desafio: "Elige el arma o casco que más resuene contigo. Al alzarlo o tomarte una foto, la aldeana revelará la clave.",
-    criptograma: "Porta lo que tu alma elija pues te acompañará en tu largo viaje",
-    pista: "Antes de partir, deberías reír una vez más. ¡Un juego no hace daño a nadie!",
+    titulo: "El arte del arco y la paciencia",
+    descripcion: `
+    <p>Dispara dos flechas para demostrar tu pulso y paciencia. Luego ingresa la palabra secreta que el aldeano te da.</p>
+    <input type="text" id="inputPaciencia" placeholder="Ingresa la palabra clave" />
+    <button onclick="validarPalabra('inputPaciencia', 'paciencia')">Verificar palabra</button>
+    <div id="mensajePaciencia" style="margin-top:15px; font-weight:bold;"></div>
+    `,
+    boton: "Ir a la armería",
+    esperaRespuesta: true,
   },
   {
-    titulo: "Risas antes del Portal",
-    clave: "Descanso",
-    desafio: "Prueba un juego medieval, escucha las reglas o tómate una foto en el cepo. Obtendrás la clave.",
-    criptograma: "Juega ríe falla todo esto quedará atrás cuando cruces el portal",
-    pista: "Cuidado, viajero… hay quien ya cruzó el portal y no recuerda su nombre.",
+    titulo: "Elección del arma y la protección",
+    descripcion: `
+    <p>Elige un arma o casco y si quieres, tómate una foto para recordar el viaje.</p>
+    <p>Recuerda la palabra clave: Protección</p>
+    <input type="text" id="inputProteccion" placeholder="Ingresa la palabra clave" />
+    <button onclick="validarPalabra('inputProteccion', 'protección')">Verificar palabra</button>
+    <div id="mensajeProteccion" style="margin-top:15px; font-weight:bold;"></div>
+    `,
+    boton: "Ir a los juegos",
+    esperaRespuesta: true,
   },
   {
-    titulo: "La Prueba del Olvido",
-    clave: "Olvido",
-    desafio: "Cruza los obstáculos vendado. Solo así recibirás la clave para liberar la última frase.",
-    criptograma: "Quien busca en el tiempo debe perder lo que es para encontrarse donde no es",
-    pista: "Has llegado al final. Une los fragmentos del tiempo. Es hora de despertar.",
+    titulo: "Risas y juegos medievales",
+    descripcion: `
+    <p>Prueba un juego, escucha las reglas o tómate una foto en el cepo.</p>
+    <p>Palabra clave: Descanso</p>
+    <input type="text" id="inputDescanso" placeholder="Ingresa la palabra clave" />
+    <button onclick="validarPalabra('inputDescanso', 'descanso')">Verificar palabra</button>
+    <div id="mensajeDescanso" style="margin-top:15px; font-weight:bold;"></div>
+    `,
+    boton: "Ir a la oscuridad",
+    esperaRespuesta: true,
+  },
+  {
+    titulo: "La prueba del olvido",
+    descripcion: `
+    <p>Con los ojos vendados, atraviesa la oscuridad y recupera la palabra clave.</p>
+    <p>Palabra clave: Olvido</p>
+    <input type="text" id="inputOlvido" placeholder="Ingresa la palabra clave" />
+    <button onclick="validarPalabra('inputOlvido', 'olvido')">Verificar palabra</button>
+    <div id="mensajeOlvido" style="margin-top:15px; font-weight:bold;"></div>
+    `,
+    boton: "Ver pergamino completo",
+    esperaRespuesta: true,
+  },
+  {
+    titulo: "El pergamino restaurado",
+    descripcion: `
+    <p>El pergamino ha sido restaurado. Los aldeanos deben reunirse a medianoche y leerlo en voz alta para que el tiempo vuelva a fluir.</p>
+    <p><strong>Frases desbloqueadas:</strong></p>
+    <ol>
+      <li>🌀 "El tiempo no avanza: se dobla, se rompe, se esconde."</li>
+      <li>🌀 “Solo aquel que alza la espada sin rencor abre el umbral dormido.”</li>
+      <li>🏹 “El futuro no se cambia, solo se intuye, como la flecha en el viento del tiempo.”</li>
+      <li>🛡️ "Porta lo que tu alma elija, pues te acompañará en tu largo viaje."</li>
+      <li>🎲 "Juega, ríe, falla: todo esto quedará atrás cuando cruces el portal."</li>
+      <li>👁️ “Quien busca en el tiempo, debe perder lo que es, para encontrarse donde no es.”</li>
+    </ol>
+    `,
+    boton: "Finalizar aventura",
   }
 ];
 
-let frases = [];
+let indice = 0;
+let animalesCorrectos = ['aguila', 'lobo', 'serpiente']; // para validar
+let respuestaCorrecta = false;
 
-function renderEstaciones() {
-  const contenedor = document.getElementById("estaciones");
-  estaciones.forEach((estacion, index) => {
-    const div = document.createElement("div");
-    div.className = "estacion";
+// Función para cargar la estación actual
+function cargarEstacion() {
+  const estacion = estaciones[indice];
+  app.innerHTML = '';
 
-    const titulo = document.createElement("h2");
-    titulo.textContent = `${estacion.titulo}`;
-    div.appendChild(titulo);
+  // Mostrar título
+  const titulo = document.createElement('h1');
+  titulo.textContent = estacion.titulo;
+  app.appendChild(titulo);
 
-    const desc = document.createElement("p");
-    desc.textContent = estacion.desafio;
-    div.appendChild(desc);
-
-    const input = document.createElement("input");
-    input.placeholder = "Ingresa la palabra clave o elige el símbolo";
-    div.appendChild(input);
-
-    const btn = document.createElement("button");
-    btn.textContent = "Desbloquear frase";
-    btn.onclick = () => verificarClave(index, input.value.trim(), div);
-    div.appendChild(btn);
-
-    contenedor.appendChild(div);
-  });
-}
-
-function verificarClave(index, valor, contenedor) {
-  const estacion = estaciones[index];
-  const claves = estacion.clave.toLowerCase().split(" ");
-  if (estacion.clave === "" || claves.includes(valor.toLowerCase())) {
-    const frase = document.createElement("p");
-    frase.innerHTML = `🌀 <strong>Frase:</strong> ${estacion.criptograma}`;
-    frases.push(estacion.criptograma);
-    const pista = document.createElement("p");
-    pista.innerHTML = `<strong>Pista:</strong> ${estacion.pista}`;
-    contenedor.appendChild(frase);
-    contenedor.appendChild(pista);
-    contenedor.querySelector("input").disabled = true;
-    contenedor.querySelector("button").disabled = true;
-    revisarFinal();
+  // Mostrar descripción si existe
+  if (estacion.descripcion) {
+    const desc = document.createElement('div');
+    desc.innerHTML = estacion.descripcion;
+    app.appendChild(desc);
   } else {
-    alert("Palabra clave incorrecta. Intenta otra vez o consulta al aldeano.");
+    const p = document.createElement('p');
+    p.textContent = estacion.texto;
+    app.appendChild(p);
+  }
+
+  // Cambiar texto del botón siguiente
+  nextBtn.textContent = estacion.boton;
+
+  // Control de botón anterior
+  prevBtn.disabled = indice === 0;
+
+  // Si espera respuesta, deshabilitar botón siguiente hasta que respondan
+  if (estacion.esperaRespuesta) {
+    nextBtn.disabled = true;
+  } else {
+    nextBtn.disabled = false;
   }
 }
 
-function revisarFinal() {
-  if (frases.length === estaciones.length) {
-    document.getElementById("final").classList.remove("hidden");
-    document.getElementById("pergaminoCompleto").textContent = frases.join(" ");
+// Funciones auxiliares para validar input y selección
+
+function seleccionarAnimal(animal) {
+  const mensaje = document.getElementById('mensajeAnimal');
+  if (animal.toLowerCase() === 'lobo') {
+    mensaje.textContent = '¡Correcto! Has elegido el espíritu protector del tiempo.';
+    respuestaCorrecta = true;
+    nextBtn.disabled = false;
+  } else {
+    mensaje.textContent = 'Esa no es la elección correcta, intenta de nuevo.';
+    respuestaCorrecta = false;
+    nextBtn.disabled = true;
   }
 }
 
-renderEstaciones();
+function validarPalabra(inputId, palabraClave) {
+  const input = document.getElementById(inputId);
+  const mensaje = document.getElementById('mensaje' + palabraClave.charAt(0).toUpperCase() + palabraClave.slice(1));
+  if (input.value.trim().toLowerCase() === palabraClave.toLowerCase()) {
+    mensaje.textContent = '¡Palabra correcta! Puedes avanzar.';
+    respuestaCorrecta = true;
+    nextBtn.disabled = false;
+  } else {
+    mensaje.textContent = 'Palabra incorrecta, inténtalo de nuevo.';
+    respuestaCorrecta = false;
+    nextBtn.disabled = true;
+  }
+}
 
+// Eventos botones
 
+nextBtn.addEventListener('click', () => {
+  if (estaciones[indice].esperaRespuesta && !respuestaCorrecta) {
+    alert('Debes completar la acción correctamente para avanzar.');
+    return;
+  }
+  if (indice < estaciones.length - 1) {
+    indice++;
+    respuestaCorrecta = false;
+    cargarEstacion();
+  } else {
+    alert('Has finalizado la experiencia. ¡Gracias por participar!');
+  }
+});
+
+prevBtn.addEventListener('click', () => {
+  if (indice > 0) {
+    indice--;
+    respuestaCorrecta = true; // para permitir avanzar si retrocedes
+    cargarEstacion();
+  }
+});
+
+// Carga inicial
+cargarEstacion();
