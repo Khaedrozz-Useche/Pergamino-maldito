@@ -1,21 +1,27 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Pergamino Maldito</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>[Misión] El Pergamino Maldito</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>El Pergamino Maldito</h1>
-        <p class="intro">
-            Has abierto el Pergamino Maldito, forjado con tinta oscura y secretos olvidados. 
-            Tres desafíos sellan tu destino. Si los resuelves, romperás la maldición. 
-            Si fallas… el pergamino te reclamará.
-        </p>
-        <div id="quiz-container"></div>
-    </div>
-    <script src="script.js"></script>
+  <div class="contenedor">
+    <h1>
+      <img class="icono" src="https://wow.zamimg.com/images/wow/icons/large/inv_scroll_03.jpg" alt="Pergamino">
+      [Misión] El Pergamino Maldito
+    </h1>
+    <p>Mientras explorabas las ruinas olvidadas de Thal'kareth, un brillo oscuro te llama la atención. Un pergamino antiguo yace en el suelo, sellado con runas arcanas...</p>
+    <p><strong>¿Qué decides hacer?</strong></p>
+
+    <button onclick="responder('leer')">Leer el pergamino</button>
+    <button onclick="responder('quemar')">Quemarlo en un fuego ritual</button>
+    <button onclick="responder('guardar')">Guardarlo para otro momento</button>
+
+    <div id="resultado"></div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
+
