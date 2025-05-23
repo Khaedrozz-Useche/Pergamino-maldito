@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const pantallas = document.querySelectorAll('.pantalla');
   const frases = [];
   let palabraSecretaArqueria = 'paciencia';
-  let palabraSecretaArmeria = 'Protección';
+  let palabraSecretaArmeria = 'protección';
   let palabraSecretaJuegos = 'descanso';
   let palabraSecretaOscuridad = 'olvido';
 
