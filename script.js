@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
   const pantallas = document.querySelectorAll('.pantalla');
   const frases = [];
-  let palabraSecretaArqueria = 'flecha';
+  let palabraSecretaArqueria = 'paciencia';
   let palabraSecretaArmeria = 'protección';
-  let palabraSecretaJuegos = 'risa';
+  let palabraSecretaJuegos = 'descanso';
   let palabraSecretaOscuridad = 'olvido';
 
   function mostrarPantalla(id) {
